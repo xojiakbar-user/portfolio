@@ -1,9 +1,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 html { scroll-behavior: smooth; }
-body { background-color: #0f172a; color: #e2e8f0; line-height: 1.6; }
+body { background-color: #0f172a; color: #e2e8f0; line-height: 1.6; overflow-x: hidden; } /* gorizontal skrollni yopish uchun */
 
 /* Navbar */
-header { background-color: rgba(15, 23, 42, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid #1e293b; }
+header { background-color: rgba(15, 23, 42, 0.95); position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid #1e293b; transition: background-color 0.3s ease; }
 .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; }
 .logo { font-size: 24px; font-weight: bold; color: #fff; }
 .logo span { color: #38bdf8; }
@@ -11,7 +11,7 @@ header { background-color: rgba(15, 23, 42, 0.95); position: fixed; width: 100%;
 .nav-links li { margin-left: 30px; }
 .nav-links a { text-decoration: none; color: #cbd5e1; font-size: 16px; transition: color 0.3s; }
 .nav-links a:hover { color: #38bdf8; }
-.burger { display: none; cursor: pointer; }
+.burger { display: none; cursor: pointer; z-index: 101; }
 .burger div { width: 25px; height: 3px; background-color: #fff; margin: 5px; transition: all 0.3s ease; }
 
 /* Hero */
@@ -41,10 +41,32 @@ header { background-color: rgba(15, 23, 42, 0.95); position: fixed; width: 100%;
 .contact-info i { color: #38bdf8; margin-right: 10px; }
 footer { text-align: center; padding: 20px; background-color: #020617; border-top: 1px solid #1e293b; }
 
-/* Responsive */
+/* Responsive (Mobil moslashuv) */
 @media (max-width: 768px) {
-    .nav-links { display: none; }
+    .nav-links { 
+        position: fixed;
+        top: 0; 
+        right: -100%; /* Ekrandan tashqarida turadi */
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(15, 23, 42, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.4s ease-in-out;
+    }
+    .nav-links.nav-active {
+        right: 0; /* JS orqali ekranga kirib keladi */
+    }
+    .nav-links li { 
+        margin: 25px 0; 
+    }
     .burger { display: block; }
     .hero { flex-direction: column-reverse; text-align: center; }
     .hero-image { margin-bottom: 30px; }
 }
+
+/* Burger animatsiyasi uchun klasslar */
+.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+.toggle .line2 { opacity: 0; }
+.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
